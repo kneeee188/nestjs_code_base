@@ -13,6 +13,7 @@ import { API_ENDPOINT, API_VERSION } from '../shared/constants/api-versions';
 import { FileUploadDTO } from './dtos/upload-file-req.dto';
 import { ApiCreatedDataWrapResponse } from '../shared/decorators/api-created-res.decorator';
 import { BODY_INPUT_TYPE } from '../shared/constants/swagger';
+import ResWrapper from '../shared/static-utils/response-wrapper.static';
 
 @ApiTags(`${API_ENDPOINT.UPLOAD}`)
 @Controller(`${API_VERSION.ONE}/${API_ENDPOINT.UPLOAD}`)
@@ -30,6 +31,6 @@ export class UploadController {
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const result = await this.uploadService.uploadImage(file);
 
-    return result;
+    return ResWrapper.single(result);
   }
 }
