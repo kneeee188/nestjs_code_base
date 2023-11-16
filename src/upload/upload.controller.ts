@@ -19,7 +19,7 @@ import { BODY_INPUT_TYPE } from '../shared/constants/swagger';
 export class UploadController {
   constructor(private readonly uploadService: IUploadService) {}
 
-  @Post()
+  @Post('image')
   @ApiConsumes(BODY_INPUT_TYPE.MULTIPART_FORMDATA)
   @ApiBody({
     description: 'A image file',
