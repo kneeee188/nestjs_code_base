@@ -13,4 +13,8 @@ export class RedisService implements ICacheService {
     const value = await this.redis.get(_key);
     return value;
   }
+
+  async set(key: string, value: any) {
+    await this.redis.set(key, value);
+  }
 }
