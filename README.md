@@ -1,12 +1,20 @@
+## Table of contents
+- [Rules](#rules)
+- [Folder Structure](#folder-structure)
+- [Running server](#running-server)
+    - [Docker](#docker)
+    - [Docker compose](#docker-compose)
+
 This base code have set uped prequently used library modules like cache, s3 uploader etc.
 Check the .env.example file to run the project.
 If you dont want, or doesnot need for your project, just makes unnecessary modules commented on app.module.ts 
 
-# Rules
+
+# Rules<a id="rules"></a>
 1. we use "yarn"
 2. we use "prisma"
 
-# Folder Structure
+# Folder Structure <a id="folder-structure"></a>
 Each module will have below files
 controller / service / repository / dto
 
@@ -23,8 +31,8 @@ Business logic is heare
 ## 4. DTO
 validation, sanitization, type change, etc..
 
-# Running server
-## Docker
+# Running server <a id="running-server"></a>
+## Docker<a id="docker"></a>
 Dev
 ```
 docker build -t any-tag-you-want -f Dockerfile.dev . 
@@ -32,7 +40,7 @@ docker build -t any-tag-you-want -f Dockerfile.dev .
 docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
 ```
 
-## Docker Compose
+## Docker Compose<a id="docker-compose"></a>
 ### DEV/LOCAL
 ```
 // Need to install because docker use volume
