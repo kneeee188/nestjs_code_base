@@ -14,7 +14,15 @@ export class RedisService implements ICacheService {
     return value;
   }
 
-  async set(key: string, value: any) {
-    await this.redis.set(key, value);
+  async set(key: string, value: any): Promise<'OK' | null> {
+    return await this.redis.set(key, value);
+  }
+
+  async setex(key: string, seconds: number | string, value: any) {
+    return await this.redis.setex(key, seconds, value);
+  }
+
+  async del(key: string) {
+    await this.redis.del(key);
   }
 }

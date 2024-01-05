@@ -59,7 +59,6 @@ docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
 ```
 
 # TODO
-- cache
 - socialLogin
 - fcm
 - socket

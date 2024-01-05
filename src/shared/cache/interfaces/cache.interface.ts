@@ -1,5 +1,6 @@
 export abstract class ICacheService {
-  get: (key: string) => Promise<string | undefined>;
-  set: (key: string, value: any) => Promise<void>;
-  // setex: (key: string, expire: number, value: any) => Promise<void>;
+  get: (key: string) => Promise<string | null>;
+  set: (key: string, value: any) => Promise<'OK' | null>;
+  setex: (key: string, seconds: number | string, value: any) => Promise<'OK'>;
+  del: (key: string) => Promise<void>;
 }
