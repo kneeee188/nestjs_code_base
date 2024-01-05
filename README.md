@@ -1,6 +1,7 @@
 ## Table of contents
 - [Rules](#rules)
 - [Folder Structure](#folder-structure)
+- [Check Points](#check-points)
 - [Running server](#running-server)
     - [Docker](#docker)
     - [Docker compose](#docker-compose)
@@ -11,8 +12,9 @@ If you dont want, or doesnot need for your project, just makes unnecessary modul
 
 
 # Rules<a id="rules"></a>
-1. we use "yarn"
-2. we use "prisma"
+1. Use "yarn"
+2. Use "prisma"
+3. Use docker compose for dev
 
 # Folder Structure <a id="folder-structure"></a>
 Each module will have below files
@@ -30,6 +32,11 @@ Business logic is heare
 
 ## 4. DTO
 validation, sanitization, type change, etc..
+
+# Check points <a id="check-points"></a>
+## Production
+1. Set the right connection pool size.
+Recommanded connection pool size is "default pool size (num_physical_cpus * 2 + 1) ÷ number of application instances."
 
 # Running server <a id="running-server"></a>
 ## Docker<a id="docker"></a>
@@ -59,11 +66,10 @@ docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
 ```
 
 # TODO
-1. database connection
-2. cache
-3. socialLogin
-4. fcm
-5. socket
+- cache
+- socialLogin
+- fcm
+- socket
 
 
 # Thinking

@@ -13,7 +13,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const logger = app.get(ILoggerService);
-
   app.setGlobalPrefix(configService.get('app.apiPrefix'), {
     exclude: [{ path: 'health', method: RequestMethod.GET }],
   });
