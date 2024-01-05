@@ -58,13 +58,6 @@ docker run -p 3000:3000 -v $(pwd):/app any-tag-you-want
 3. Run "docker compose -f docker-compose-dev.yml up"
 ```
 
-### PROD
-```
-1. Set ".env.prod" file
-
-2. Run "docker compose -f docker-compose-prod.yml up"
-```
-
 # TODO
 - cache
 - socialLogin
