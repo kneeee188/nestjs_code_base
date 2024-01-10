@@ -2,9 +2,12 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { RequestMethod } from '@nestjs/common';
-import { HttpExceptionFilter } from './infra/middleware/http-exception.filter';
+import { HttpExceptionFilter } from './infra/filters/http-exception.filter';
 import { ILoggerService } from './shared/logger/interface/logger-service.interface';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ServiceLayerExceptionToHttpExceptionFilter } from './infra/filters/service-layer-exception.filter';
+import { UnhandledExceptionFilter } from './infra/filters/unhandled-exception.filter';
+import { PrismaClientExceptionFilter } from './infra/filters/prisma-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,7 +31,10 @@ async function bootstrap() {
     SwaggerModule.setup('api-docs', app, document);
   }
 
-  app.useGlobalFilters(new HttpExceptionFilter(logger));
+  app.useGlobalFilters(new UnhandledExceptionFilter(logger));
+  app.useGlobalFilters(new ServiceLayerExceptionToHttpExceptionFilter());
+  app.useGlobalFilters(new PrismaClientExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   await app.listen(configService.get('app.port'));
 }

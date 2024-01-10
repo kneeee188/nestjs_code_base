@@ -1,19 +1,16 @@
-import {
-  ExceptionFilter,
-  Catch,
-  ArgumentsHost,
-  HttpStatus,
-  HttpException,
-} from '@nestjs/common';
+import { Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ERROR_CODE } from '../../shared/constants/error-code';
 import { ILoggerService } from '../../shared/logger/interface/logger-service.interface';
+import { ErrorBody } from '../../shared/constants/error-body';
+import { BaseExceptionFilter } from '@nestjs/core';
 
 @Catch()
-export class HttpExceptionFilter implements ExceptionFilter {
-  constructor(private readonly logger: ILoggerService) {}
+export class UnhandledExceptionFilter extends BaseExceptionFilter {
+  constructor(private readonly logger: ILoggerService) {
+    super();
+  }
 
-  catch(exception, host: ArgumentsHost) {
+  catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const res = ctx.getResponse<Response>();
     const req = ctx.getRequest<Request>();
@@ -21,12 +18,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const status = HttpStatus.INTERNAL_SERVER_ERROR;
     const message =
       process.env.NODE_ENV !== 'prod' ? (exception as any).message : '';
-    const error = ERROR_CODE.INTERNER_SERVER_ERROR;
-
-    if (exception instanceof HttpException) {
-      const detail = exception.getResponse();
-      return res.status(exception.getStatus()).json(detail);
-    }
+    const error = ErrorBody.INTERNAL_SERVER_ERROR;
 
     // Send alert here or in logging server
     this.logger.error(
@@ -35,6 +27,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       } / code:${error}- ${exception} - ${(exception as any).stack}}`,
     );
 
-    res.status(status).json({ error, statusCode: status, message });
+    res.status(status).json({ ...error, detail: message });
   }
 }
