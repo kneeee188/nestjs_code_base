@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { RequestMethod } from '@nestjs/common';
+import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from './infra/filters/http-exception.filter';
 import { ILoggerService } from './shared/logger/interface/logger-service.interface';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -30,6 +30,14 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api-docs', app, document);
   }
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
+      whitelist: true,
+    }),
+  );
 
   app.useGlobalFilters(new UnhandledExceptionFilter(logger));
   app.useGlobalFilters(new ServiceLayerExceptionToHttpExceptionFilter());
