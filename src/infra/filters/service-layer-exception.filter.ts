@@ -9,7 +9,7 @@ import {
   AuthenticationException,
   AuthorizationException,
   ServiceLayerException,
-} from '../exceptions/service-layer.exception';
+} from '../../shared/exceptions/service-layer.exception';
 import { BaseExceptionFilter } from '@nestjs/core';
 
 @Catch(ServiceLayerException)

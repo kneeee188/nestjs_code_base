@@ -1,4 +1,4 @@
-import { TErrorBody } from '../../shared/constants/error-body';
+import { TErrorBody } from '../constants/error-body';
 
 export abstract class BaseException extends Error {
   errorCode: string;
