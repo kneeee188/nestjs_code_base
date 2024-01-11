@@ -1,9 +1,4 @@
-import {
-  ArgumentsHost,
-  Catch,
-  HttpStatus,
-  NotAcceptableException,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, HttpStatus } from '@nestjs/common';
 import { Response } from 'express';
 import {
   AuthenticationException,
@@ -23,8 +18,6 @@ export class ServiceLayerExceptionToHttpExceptionFilter extends BaseExceptionFil
       status = HttpStatus.UNAUTHORIZED;
     if (exception instanceof AuthorizationException)
       status = HttpStatus.UNAUTHORIZED;
-    if (exception instanceof NotAcceptableException)
-      status = HttpStatus.NOT_ACCEPTABLE;
 
     res.status(status).json({
       errorCode: exception.errorCode,
