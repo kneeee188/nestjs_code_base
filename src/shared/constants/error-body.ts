@@ -5,7 +5,7 @@ export interface IErrorContent {
 
 export const ErrorCode = {
   USER_ALREADY_EXISTS: 'USER_ALREADY_EXISTS',
-  INTERNAL_SERVER_ERROR: 'INTERNER_SERVER_ERROR',
+  INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
 } as const;
 
 export type TErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode];
